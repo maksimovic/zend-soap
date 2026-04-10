@@ -1026,10 +1026,10 @@ class Zend_Soap_Client
      * @param int    $one_way
      * @return mixed
      */
-    public function _doRequest(Zend_Soap_Client_Common $client, $request, $location, $action, $version, $one_way = null)
+    public function _doRequest(Zend_Soap_Client_Common $client, $request, $location, $action, $version, $one_way = false)
     {
         // Perform request as is
-        if ($one_way == null) {
+        if ($one_way === false) {
             return call_user_func(array($client,'SoapClient::__doRequest'), $request, $location, $action, $version);
         } else {
             return call_user_func(array($client,'SoapClient::__doRequest'), $request, $location, $action, $version, $one_way);
