@@ -44,6 +44,11 @@
 class Zend_Soap_Server implements Zend_Server_Interface
 {
     /**
+     * Replacement for the deprecated SOAP_FUNCTIONS_ALL constant (PHP 8.4+).
+     */
+    const FUNCTIONS_ALL = 999;
+
+    /**
      * Actor URI
      * @var string URI
      */
@@ -106,7 +111,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     protected $_faultExceptions = array();
 
     /**
-     * Functions registered with this server; may be either an array or the SOAP_FUNCTIONS_ALL
+     * Functions registered with this server; may be either an array or the self::FUNCTIONS_ALL
      * constant
      * @var array|int
      */
@@ -537,15 +542,15 @@ class Zend_Soap_Server implements Zend_Server_Interface
      * Attach a function as a server method
      *
      * @param array|string $function Function name, array of function names to attach,
-     * or SOAP_FUNCTIONS_ALL to attach all functions
+     * or self::FUNCTIONS_ALL to attach all functions
      * @param  string $namespace Ignored
      * @return Zend_Soap_Server
      * @throws Zend_Soap_Server_Exception on invalid functions
      */
     public function addFunction($function, $namespace = '')
     {
-        // Bail early if set to SOAP_FUNCTIONS_ALL
-        if ($this->_functions == SOAP_FUNCTIONS_ALL) {
+        // Bail early if set to FUNCTIONS_ALL
+        if ($this->_functions == self::FUNCTIONS_ALL) {
             return $this;
         }
 
@@ -561,8 +566,8 @@ class Zend_Soap_Server implements Zend_Server_Interface
             $this->_functions = array_merge($this->_functions, $function);
         } elseif (is_string($function) && function_exists($function)) {
             $this->_functions[] = $function;
-        } elseif ($function == SOAP_FUNCTIONS_ALL) {
-            $this->_functions = SOAP_FUNCTIONS_ALL;
+        } elseif ($function == self::FUNCTIONS_ALL) {
+            $this->_functions = self::FUNCTIONS_ALL;
         } else {
             // require_once 'Zend/Soap/Server/Exception.php';
             throw new Zend_Soap_Server_Exception('Invalid function specified');
