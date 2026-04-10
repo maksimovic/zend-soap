@@ -78,7 +78,7 @@ class Zend_Soap_Client_Local extends Zend_Soap_Client
      * @param int    $one_way
      * @return mixed
      */
-    public function _doRequest(Zend_Soap_Client_Common $client, $request, $location, $action, $version, $one_way = null)
+    public function _doRequest(Zend_Soap_Client_Common $client, $request, $location, $action, $version, $one_way = false)
     {
         // Perform request as is
         ob_start();

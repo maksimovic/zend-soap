@@ -56,7 +56,7 @@ class Zend_Soap_Server_Proxy
     public function __call($name, $arguments)
     {
         $result = call_user_func_array(array($this->_classInstance, $name), $this->_preProcessArguments($arguments));
-        return array("{$name}Result"=>$result);
+        return array($name . "Result" => $result);
     }
     /**
      *  Pre process arguments
